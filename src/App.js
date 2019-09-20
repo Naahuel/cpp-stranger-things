@@ -7,6 +7,7 @@ class App extends Component {
     super(props);
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.state = {
       key: null
     }
@@ -15,21 +16,23 @@ class App extends Component {
   handleKeyDown(event){
     this.setState({
       key: event.keyCode
-    }, () => {
-      setTimeout(() => {
-        this.setState({
-          key: null
-        })
-      }, 1000)
+    });
+  }
+
+  handleKeyUp(){
+    this.setState({
+      key: null
     });
   }
 
   componentDidMount(){
     document.addEventListener("keydown", this.handleKeyDown);
+    document.addEventListener("keyup", this.handleKeyUp);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("keyup", this.handleKeyUp);
   }
 
   render() {
